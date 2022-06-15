@@ -1,0 +1,17 @@
+<div class="p-2">
+  <button class="btn btn-primary btn-sm" [routerLink]="['/users']"> Users </button>
+  <table class="table table-sm table-striped">
+    <tbody>
+      <tr>
+        <th>PC</th>
+        <th>PC Name</th>
+
+      </tr>
+      <tr *ngFor="let userPC of userPCs">
+        <td>{{userPC.userPcid}}</td>
+        <td>{{userPC.pcname}} </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
