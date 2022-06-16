@@ -13,6 +13,10 @@ import { UserSelectionComponent } from './userSelection.component';
     UserSelectionComponent,
   ],
   imports: [BrowserModule],
-  exports: [UserSelectionComponent, CategoryFilterComponent],
+  exports: [
+    UserSelectionComponent,
+    CategoryFilterComponent,
+    PaginationComponent,
+  ],
 })
 export class SpaModule {}

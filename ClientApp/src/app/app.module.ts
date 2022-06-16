@@ -8,6 +8,7 @@ import { ModelModule } from './models/model.module';
 import { SpaModule } from './spa/spa.module';
 import { FormsModule } from '@angular/forms';
 import { StatisticModule } from './statistic/statistic.module';
+import { PcsModule } from './pcs/pcs.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { StatisticModule } from './statistic/statistic.module';
     FormsModule,
     SpaModule,
     StatisticModule,
+    PcsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

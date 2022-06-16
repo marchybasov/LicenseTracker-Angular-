@@ -26,5 +26,27 @@ namespace ServerApp.Controllers
             return query;
         }
 
+        [HttpGet("{category}")]
+        public IEnumerable<UserPcs> GetUsersPerCategory(string category)
+        {
+            IEnumerable<UserPcs> res = new List<UserPcs>();
+            switch (category.ToLower())
+            {
+                case "solidworks":
+                    res = context.SolidworksLicenseUsages.Where(p => p.FeatureFeatureId == 1).Select(p => p.UserPcUserPc).Distinct();
+                    break;
+                case "pdm":
+                    res = context.SolidworksLicenseUsages.Where(p => p.FeatureFeatureId == 2).Select(p => p.UserPcUserPc).Distinct();
+                    break;
+                case "viewer":
+                    res = context.SolidworksLicenseUsages.Where(p => p.FeatureFeatureId == 4).Select(p => p.UserPcUserPc).Distinct();
+                    break;
+            }
+
+
+            return res.OrderBy(p => p.Pcname);
+
+        }
+
     }
 }

@@ -1,5 +1,5 @@
 <div *ngIf="users?.length > 0; else nodata" class="">
-  <div *ngFor="let user of users" class="card m-1 p-1 bg-light">
+  <div *ngFor="let user of users; let i=index" class="card m-1 p-1 bg-light">
     <h6>
       {{ user.fullName }}
     </h6>

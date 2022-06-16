@@ -17,8 +17,9 @@ export class NavigationService {
 
   private handleNavigationChange() {
     let active = this.active.firstChild.snapshot;
-   
+
     if (active.url.length > 0 && active.url[0].path === 'spa') {
+      this.repository.filter.root = 'spa';
       if (active.params['categoryOrPage'] !== undefined) {
         let value = Number.parseInt(active.params['categoryOrPage']);
         if (!Number.isNaN(value)) {
@@ -35,9 +36,26 @@ export class NavigationService {
           Number.parseInt(active.params['page']) || 1;
       }
       this.repository.getUsers();
-    }
-
-    if (active.url.length > 0 && active.url[0].path === 'statistic') {
+    } else if (active.url.length > 0 && active.url[0].path === 'pcs') {
+      this.repository.filter.root = 'pcs';
+      if (active.params['categoryOrPage'] !== undefined) {
+        let value = Number.parseInt(active.params['categoryOrPage']);
+        if (!Number.isNaN(value)) {
+          this.repository.filter.category = '';
+          this.repository.paginationObject.currentPage = value;
+        } else {
+          this.repository.filter.category = active.params['categoryOrPage'];
+          this.repository.paginationObject.currentPage = 1;
+        }
+      } else {
+        let category = active.params['category'];
+        this.repository.filter.category = category || '';
+        this.repository.paginationObject.currentPage =
+          Number.parseInt(active.params['page']) || 1;
+      }
+      this.repository.getUserPCs();
+    } else if (active.url.length > 0 && active.url[0].path === 'statistic') {
+      this.repository.filter.root = 'statistic';
       let category = active.params['category'];
       this.repository.filter.category = category || '';
       this.repository.getStatistic();
@@ -51,12 +69,20 @@ export class NavigationService {
   get currentCategory(): string {
     return this.repository.filter.category;
   }
+  get currentRoute(): string {
+    return this.repository.filter.root;
+  }
 
   set currentCategory(newCategory: string) {
     let myUrl = this.active.firstChild.snapshot.url[0].path;
     if (myUrl === 'spa') {
+      this.repository.filter.root = 'spa';
       this.router.navigateByUrl(`/spa/${(newCategory || '').toLowerCase()}`);
+    } else if (myUrl === 'pcs') {
+      this.repository.filter.root = 'pcs';
+      this.router.navigateByUrl(`/pcs/${(newCategory || '').toLowerCase()}`);
     } else {
+      this.repository.filter.root = 'statistic';
       this.router.navigateByUrl(
         `/statistic/${(newCategory || '').toLowerCase()}`
       );
@@ -68,10 +94,11 @@ export class NavigationService {
   }
 
   set currentPage(newPage: number) {
+    let myUrl = this.active.firstChild.snapshot.url[0].path;
     if (this.currentCategory === '') {
-      this.router.navigateByUrl(`/spa/${newPage}`);
+      this.router.navigateByUrl(`/${myUrl}/${newPage}`);
     } else {
-      this.router.navigateByUrl(`/spa/${this.currentCategory}/${newPage}`);
+      this.router.navigateByUrl(`/${myUrl}/${this.currentCategory}/${newPage}`);
     }
   }
 
@@ -80,6 +107,9 @@ export class NavigationService {
   }
 
   get usersCount(): number {
+    if (this.active.firstChild.snapshot.url[0].path === 'pcs') {
+      return (this.repository.userPCs || []).length;
+    }
     return (this.repository.users || []).length;
   }
 }

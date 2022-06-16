@@ -24,7 +24,7 @@ export class Repository {
     //this.getStatistic();
     //this.getUsers();
 
-    //this.getUserPCs();
+    this.getUserPCs();
   }
 
   getUser(id: number) {
@@ -56,9 +56,10 @@ export class Repository {
   }
 
   getUserPCs() {
-    debugger;
-    this.http
-      .get<UserPCs[]>(userPCsUrl)
-      .subscribe((pcs) => (this.userPCs = pcs));
+    let url = `${userPCsUrl}`;
+    if (this.filter.category) {
+      url += `/${this.filter.category}`;
+    }
+    this.http.get<UserPCs[]>(url).subscribe((pcs) => (this.userPCs = pcs));
   }
 }
