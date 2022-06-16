@@ -1,16 +1,20 @@
-<!-- <div class="p-2">
-  <table class="table table-sm table-striped">
-    <tbody>
-      <tr>
-        <th>Id</th>
-        <th>Full Name</th>
-        
-      </tr>
-      <tr *ngFor="let user of users">
-        <td>{{user.userId}}</td>
-        <td>{{user.fullName}} </td>      
-      </tr>
-    </tbody>
-  </table>
-</div> -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col bg-dark text-white">
+      <div class="navbar-brand mx-5">License Tracker</div>
+      <div class="float-right navbar-text btn-group btn-group-toggle" data-toggle="buttons">
+        <!-- <label for="" class="btn btn-outline-primary mx-2 active"> <input type="radio" name="options" id="option1"
+            checked>Statistic</label>
+        <label for="" class="btn btn-outline-primary mx-2"> <input type="radio" name="options" id="option2"
+            checked>Users</label>
+        <label for="" class="btn btn-outline-primary mx-2"> <input type="radio" name="options" id="option3"
+            checked>PCs</label> -->
+        <button class="btn btn-outline-primary mx-2" data-toggle="button"
+          [routerLink]="['/statistic']">Statistic</button>
+        <button class="btn btn-outline-primary mx-2" data-toggle="button" [routerLink]="['/spa']">Users</button>
+        <button class=" btn btn-outline-primary mx-2" data-toggle="button">PCs</button>
+      </div>
+    </div>
+  </div>
+</div>
 <router-outlet></router-outlet>

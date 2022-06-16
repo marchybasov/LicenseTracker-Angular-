@@ -1,0 +1,24 @@
+<div class="m-1">
+  <button class="btn btn-outline-primary btn-block" [class.active]="service.currentCategory == ''"
+    (click)="service.currentCategory = ''">
+    All Categories
+  </button>
+
+  <button class="btn btn-outline-primary btn-block" [class.active]="service.currentCategory == 'solidworks'"
+    (click)="service.currentCategory = 'solidworks'">
+    Solidworks
+  </button>
+
+  <button class="btn btn-outline-primary btn-block" [class.active]="service.currentCategory == 'pdm'"
+    (click)="service.currentCategory = 'PDM'">
+    PDM Editor
+  </button>
+  <button class="btn btn-outline-primary btn-block" [class.active]="service.currentCategory == 'viewer'"
+    (click)="service.currentCategory = 'Viewer'">
+    PDM Viewer
+  </button>
+  <!-- <button *ngFor="let category of service.categories" class="btn btn-outline-primary btn-block" [class.active]="service.currentCategory.toLowerCase()
+                == category.toLowerCase()" (click)="service.currentCategory = category">
+    {{category}}
+  </button> -->
+</div>

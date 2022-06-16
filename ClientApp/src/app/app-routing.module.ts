@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserTableComponent } from './structure/userTable.component';
-import { UserPCsTableComponent } from './structure/userPCsTable.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { UserSelectionComponent } from './spa/userSelection.component';
+import { StatisticSelectionComponent } from './statistic/statisticSelection.component';
 
 const routes: Routes = [
-  { path: 'users', component: UserTableComponent },
-  { path: 'pcs', component: UserPCsTableComponent },
-  { path: '', component: UserPCsTableComponent },
+  { path: 'spa/:category/:page', component: UserSelectionComponent },
+  { path: 'spa/:categoryOrPage', component: UserSelectionComponent },
+  { path: 'spa', component: UserSelectionComponent },
+  { path: 'statistic/:category', component: StatisticSelectionComponent },
+  { path: 'statistic', component: StatisticSelectionComponent },
+  { path: '', redirectTo: '/statistic', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -1,11 +1,13 @@
 import { Users } from './User.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Filter } from './configClasses.repository';
+import { Filter, Pagination } from './configClasses.repository';
 import { UserPCs } from './UserPC.model';
+import { Statistic } from './UsageStatistic.model';
 
 const usersUrl = '/api/users/';
 const userPCsUrl = '/api/pcs';
+const statisticUrl = 'api/statistic';
 
 @Injectable()
 export class Repository {
@@ -13,11 +15,16 @@ export class Repository {
   users: Users[];
   userPCs: UserPCs[];
   filter: Filter = new Filter();
+  categories: string[] = [];
+  paginationObject = new Pagination();
+  statistic: Statistic;
+
   constructor(private http: HttpClient) {
-    // this.filter.category = 'soccer';
     this.filter.related = true;
-    this.getUsers();
-    this.getUserPCs();
+    //this.getStatistic();
+    //this.getUsers();
+
+    //this.getUserPCs();
   }
 
   getUser(id: number) {
@@ -26,10 +33,21 @@ export class Repository {
       console.log('Product Data Received');
     });
   }
-  getUsers() {
-    let url = `${usersUrl}?related=${this.filter.related}`;
+
+  getStatistic() {
+    let url = `${statisticUrl}`;
     if (this.filter.category) {
-      url += `&category=${this.filter.category}`;
+      url += `/${this.filter.category}`;
+    }
+    this.http
+      .get<Statistic>(url)
+      .subscribe((statics) => (this.statistic = statics));
+  }
+
+  getUsers() {
+    let url = `${usersUrl}`;
+    if (this.filter.category) {
+      url += `${this.filter.category}`;
     }
     if (this.filter.search) {
       url += `&search=${this.filter.search}`;

@@ -44,21 +44,7 @@ namespace ServerApp.Controllers
                 }
 
             }
-            return res;
-            //if (related)
-            //{
-            //     SolidworksLicenseUsages res= query.Include(p => p.UserUser).Include(p => p.UserPcUserPc).Include(p => p.FeatureFeature).Include(p => p.UsageActionUsageAction).FirstOrDefault(p=>p.Id==id);
-            //    if (res != null)
-            //    {
-            //        if (res.)
-            //        {
-
-            //        }
-            //    } 
-                
-            //    return query.Where(p=>p.Id == id);
-            //}
-            //return null;
+            return res;           
         }
     }
 }
